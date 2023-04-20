@@ -2,6 +2,9 @@ if __name__ == "__main__":
     end_list = []
     # lista ostateczna, z przekonwertowanymi wartosciami
     input_list = input("Podaj cyfry oddzielone spacją")
+    if not input_list:
+        print("Avg = 0")
+        exit()
     # dziele liste spacjami i zapisuje ja w nowej liscie
     digits = input_list.split()
     for digit in digits:
