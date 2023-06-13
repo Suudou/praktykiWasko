@@ -48,7 +48,7 @@ if __name__ == "__main__":
         return results
 
 
-    def reroll_dice(results, reroll,sides):
+    def reroll_dice(results, reroll, sides):
         for i in range(len(results)):
             if results[i] == reroll:
                 dice_choice = input(f"Przerzucić wynik {results[i]}? (tak/nie): ")
@@ -67,23 +67,35 @@ if __name__ == "__main__":
 
 
     def simulate_rolls(pattern):
-        parsed_pattern = parse_roll_pattern(pattern)
-        if parsed_pattern:
-            num_rolls, sides, high_drop, low_drop, reroll, sign, number = parsed_pattern
+        match = re.match(r"(\d+)?(?:\((\d+)d(\d+)(h(\d+))?(l(\d+))?(r(\d+))?\))?([\+\-\*\/])?(\d+)?", pattern)
+        if match:
+            series_count = int(match.group(1)) if match.group(1) else 1
+            num_rolls = int(match.group(2)) if match.group(2) else 1
+            sides = int(match.group(3)) if match.group(3) else 6
+            high_drop = int(match.group(5)) if match.group(5) else 0
+            low_drop = int(match.group(7)) if match.group(7) else 0
+            reroll = int(match.group(9)) if match.group(9) else 0
+            sign = match.group(10) if match.group(10) else None
+            number = int(match.group(11)) if match.group(11) else 0
 
-            results = roll_dice(num_rolls, sides)
-            print("Wyniki rzutów:", results)
+            results = []  # Przechowuje wyniki rzutów
 
-            results = reroll_dice(results, reroll, sides)
-            print("Wyniki po przerzucie:", results)
+            for _ in range(series_count):
+                roll_results = roll_dice(num_rolls, sides)
+                print("Wyniki rzutów:", roll_results)
 
-            results = drop_high_low(results, high_drop, low_drop)
-            print("Wyniki po odrzuceniu:", results)
+                roll_results = reroll_dice(roll_results, reroll, sides)
+                print("Wyniki po przerzucie:", roll_results)
 
-            if sign:
-                results = do_operation(sign, results, number)
+                roll_results = drop_high_low(roll_results, high_drop, low_drop)
+                print("Wyniki po odrzuceniu:", roll_results)
 
-            print("Suma wyników:", results)
+                if sign:
+                    roll_results = do_operation(sign, roll_results, number)
+
+                results.extend(roll_results)  # Rozszerza listę wyników o wyniki bieżącej serii
+
+            print("Wynik końcowy:", results)
         else:
             print("Nieprawidłowy wzór.")
 
