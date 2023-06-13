@@ -69,16 +69,16 @@ if __name__ == "__main__":
     def simulate_rolls(pattern):
         match = re.match(r"(\d+)?(?:\((\d+)d(\d+)(h(\d+))?(l(\d+))?(r(\d+))?\))?([\+\-\*\/])?(\d+)?", pattern)
         if match:
-            series_count = int(match.group(1)) if match.group(1) else 1
+            series_count = int(match.group(1)) if match.group(1) else 1 if not match.group(1) else 1
             num_rolls = int(match.group(2)) if match.group(2) else 1
             sides = int(match.group(3)) if match.group(3) else 6
             high_drop = int(match.group(5)) if match.group(5) else 0
             low_drop = int(match.group(7)) if match.group(7) else 0
             reroll = int(match.group(9)) if match.group(9) else 0
-            sign = match.group(10) if match.group(10) else None
+            sign = match.group(10) if match.group(10) else 1
             number = int(match.group(11)) if match.group(11) else 0
 
-            results = []  # Przechowuje wyniki rzutów
+            results = []  # Inicjalizacja pustej tablicy wyników
 
             for _ in range(series_count):
                 roll_results = roll_dice(num_rolls, sides)
@@ -89,16 +89,20 @@ if __name__ == "__main__":
 
                 roll_results = drop_high_low(roll_results, high_drop, low_drop)
                 print("Wyniki po odrzuceniu:", roll_results)
-
+                results.append(roll_results)  # Dodanie wyników rzutów do tablicy wyników
                 if sign:
-                    roll_results = do_operation(sign, roll_results, number)
+                    x = do_operation(sign, roll_results, number)
+                    print("Wynik po obliczeniach", x)
 
-                results.extend(roll_results)  # Rozszerza listę wyników o wyniki bieżącej serii
+            for serie in results:
+                summ = "suma: " + str(sum(serie))
+                serie.append(summ)
 
-            print("Wynik końcowy:", results)
+            print("Wyniki końcowe:", results)  # Drukowanie ostatecznej tablicy wyników
         else:
             print("Nieprawidłowy wzór.")
 
 
     roll_pattern = input("Podaj wzór rzutu kością (np. '2d6h1l1r3'): ")
+
     simulate_rolls(roll_pattern)
