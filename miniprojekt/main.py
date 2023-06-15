@@ -10,22 +10,8 @@ class Dice:
     def roll(self):
         return random.randint(1, self.sides)
 
-# dopasowanie wzoru, drop low, high, reroll, działania są optymalne
-def parse_roll_pattern(pattern):
-    match = re.match(r"(\d+)d(\d+)(h(\d+))?(l(\d+))?(r(\d+))?([\+\-\*\/])?(\d+)?", pattern)
-    if match:
-        num_rolls = int(match.group(1))
-        sides = int(match.group(2))
-        high_drop = int(match.group(4)) if match.group(4) else 0
-        low_drop = int(match.group(6)) if match.group(6) else 0
-        reroll = int(match.group(8)) if match.group(8) else 0
-        sign = match.group(9) if match.group(9) else None
-        number = int(match.group(10)) if match.group(10) else 0
-        return num_rolls, sides, high_drop, low_drop, reroll, sign, number
-    else:
-        return None
-
 # wykonywanie operacji na wyniku
+
 
 def do_operation(sign, results, number):
     x = sum(results)
@@ -47,6 +33,7 @@ def roll_dice(num_rolls, sides):
         dice = Dice(sides)
         results.append(dice.roll())
     return results
+# funkcja przelosowywująca wynik
 
 
 def reroll_dice(results, reroll, sides):
@@ -58,6 +45,8 @@ def reroll_dice(results, reroll, sides):
                 results[i] = dice.roll()
     return results
 
+# funkcja odrzucająca wyniki najwyższe najniższe.
+
 
 def drop_high_low(results, high_drop, low_drop):
     if high_drop > 0:
@@ -65,6 +54,8 @@ def drop_high_low(results, high_drop, low_drop):
     if low_drop > 0:
         results = sorted(results)[low_drop:]
     return results
+
+# funkcja dopasowywująca dane z inputa
 
 
 def simulate_rolls(pattern):
@@ -106,8 +97,8 @@ def simulate_rolls(pattern):
 
 if __name__ == "__main__":
     while True:
-        roll_pattern = input("Podaj wzór rzutu kością (np. '2d6h1l1r3'): \n"
-                             "jeśli chcesz zakończyć działanie programu wpisz 'q'")
+        roll_pattern = input("Podaj wzór rzutu kością (np. '2d6h1l1r3', enter rzuci kostką d6): \n"
+                             "jeśli chcesz zakończyć działanie programu wpisz 'q' \n")
 
         if roll_pattern.lower() == "q":
             break
