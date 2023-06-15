@@ -1,9 +1,16 @@
 import os
 if __name__ == "__main__":
-
-    input_folder = "/Users/l.sudol/PycharmProjects/lsudol/Zadanie3/files"
-    output_folder = "/Users/l.sudol/PycharmProjects/lsudol/Zadanie3/res/results.txt"
-
+    # dynamiczna ścieżka do input folderu
+    script_path = os.path.abspath(__file__)
+    parent_dir = os.path.dirname(script_path)
+    input_folder = os.path.join(parent_dir, "input_folder")
+    # Tworzenie output folderu
+    out_name = "output_folder"
+    os.makedirs(os.path.join(parent_dir, out_name))
+    # ścieżka do output folderu
+    results_dir = os.path.join(parent_dir, "output_folder")
+    output_folder = os.path.join(results_dir, "results")
+    # tworzenie lity plików wejściowych
     dir_list = os.listdir(input_folder)
     lines_list = []
     lines_dic = {}
