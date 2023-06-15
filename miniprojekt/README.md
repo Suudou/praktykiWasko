@@ -16,7 +16,7 @@ Dostępne operatory to dzielenie /, dodanie +, odejmowanie -, mnożenie *. Przyk
 
 Przykładowe użycia wzoru:
 
-d6 - 1 rzut 6-ścienną kostką
+d6 / enter - 1 rzut 6-ścienną kostką
 
 (3d4l1r2) - 3 rzuty 4- ścienną kostką, jeśli wypadnie 2, mamy możliwość rzucenia jeszcze raz, następnie odrzucamy najniższy wynik.
 
