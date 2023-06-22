@@ -22,11 +22,24 @@ def choosed_city(city):
     url = "https://danepubliczne.imgw.pl/api/data/synop/station/" + formatted_in
     response = requests.get(url)
     info = json.loads(response.text)
-    print(info)
+
     return info
+
+
+class Weather:
+    def __init__(self, city_info):
+        self.city = city_info.get('stacja')
+        self.date = city_info.get('data_pomiaru')
+        self.time = city_info.get('godzina_pomiaru')
+        self.temp = city_info.get('temperatura')
+        self.wind = city_info.get('predkosc_wiatru')
+        self.humidity = city_info.get('wilgotnosc_wzgledna')
+        self.rain = city_info.get('suma_opadu')
+        self.pressure = city_info.get('cisnienie')
 
 
 choice = input("wpisz nazwę miasta, bez polskich znaków \n")
 formatted_in = choice.lower()
-choosed_city(formatted_in)
-
+city_info = choosed_city(formatted_in)
+weather = Weather(choosed_city(formatted_in))
+print(weather)
