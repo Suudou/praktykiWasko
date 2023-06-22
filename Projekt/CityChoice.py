@@ -12,14 +12,21 @@ def cities_get():
     response = requests.get(url)
     data = json.loads(response.text)
     cities = []
-    #choice = input("wpisz nazwę miasta\n")
-    #formatted_in = choice.lower().capitalize()
     for obj in data:
         city = obj.get('stacja')
         cities.append(city)
     return cities
-print(cities_get())
 
-def choosed_city(choice):
 
+def choosed_city(city):
+    url = "https://danepubliczne.imgw.pl/api/data/synop/station/" + formatted_in
+    response = requests.get(url)
+    info = json.loads(response.text)
+    print(info)
+    return info
+
+
+choice = input("wpisz nazwę miasta, bez polskich znaków \n")
+formatted_in = choice.lower()
+choosed_city(formatted_in)
 
