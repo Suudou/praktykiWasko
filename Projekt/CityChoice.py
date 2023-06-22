@@ -37,6 +37,15 @@ class Weather:
         self.rain = city_info.get('suma_opadu')
         self.pressure = city_info.get('cisnienie')
 
+    def __str__(self):
+        show_all = vars(self)
+        text = ""
+        for key, value in show_all.items():
+            part1 = f"{key} : {value}"
+            text += f"{part1}  \n"
+
+        return text
+
 
 choice = input("wpisz nazwę miasta, bez polskich znaków \n")
 formatted_in = choice.lower()
