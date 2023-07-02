@@ -3,14 +3,11 @@ import CityChoice
 import jinja2
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
-
 import uvicorn
+
 
 app = FastAPI()
 
-@app.get("/home")
-def home():
-    return weather
 
 #@app.get("index/, response_class=HTMLResponse")
 
@@ -24,15 +21,6 @@ def get_station(name: str):
     return "station not found"
 
 
+templates = Jinja2Templates(directory="templates")
 
-
-
-#@app.post("/weather/{station}")
-#def station(item: Station)
-
-testname = "krakow"
-weather = CityChoice.chosen_city(testname)
-
-
-# weather = Weather(chosen_city(formatted_in))
 
