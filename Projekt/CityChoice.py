@@ -18,12 +18,14 @@ def cities_get():
     return cities
 
 
-def choosed_city(city):
-    url = "https://danepubliczne.imgw.pl/api/data/synop/station/" + formatted_in
+def chosen_city(city):
+    city = city.lower()
+    url = "https://danepubliczne.imgw.pl/api/data/synop/station/" + city
     response = requests.get(url)
     info = json.loads(response.text)
+    weather = Weather(info)
 
-    return info
+    return weather
 
 
 class Weather:
@@ -45,10 +47,3 @@ class Weather:
             text += f"{part1}  \n"
 
         return text
-
-
-choice = input("wpisz nazwę miasta, bez polskich znaków \n")
-formatted_in = choice.lower()
-city_info = choosed_city(formatted_in)
-weather = Weather(choosed_city(formatted_in))
-print(weather)
