@@ -20,6 +20,3 @@ def convert_temperature(dst, val, src='C'):
     else:
         raise ValueError("Błąd" + src)
 
-
-print(convert_temperature('F',30,'K'))
-
