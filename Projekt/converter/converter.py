@@ -1,4 +1,4 @@
 import temperature
 
 
-print(temperature.convert_temperature('K', 30, 'C'))
+print(temperature.convert_temperature('K', 30, 'F'))
