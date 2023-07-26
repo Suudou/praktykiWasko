@@ -26,3 +26,13 @@ class URLTemplate:
     @abstractmethod
     def get_city_names(self) -> list:
         pass
+
+    @abstractmethod
+    def get_formatted_city_data(self, specific_city_name) -> dict:
+        basic_weather_template = {
+            'City': '',
+            'Temperature': '',
+            'Pressure': '',
+            'Rainfall': '',
+        }
+        return basic_weather_template
