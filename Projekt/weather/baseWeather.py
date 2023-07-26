@@ -22,3 +22,7 @@ class URLTemplate:
         url = self.SPECIFIC_CITIES_URL.substitute(kwargs)
         response = requests.get(url)
         return json.loads(response.text)
+
+    @abstractmethod
+    def get_city_names(self) -> list:
+        pass
