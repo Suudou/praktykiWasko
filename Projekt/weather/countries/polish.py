@@ -20,3 +20,27 @@ class PolishWeather(URLTemplate):
             city_names_list.append(city)
         return city_names_list
 
+    def get_formatted_city_data(self, specific_city_name) -> dict:
+        basic_weather_template = super().get_formatted_city_data(specific_city_name)
+        city_data = self._get_city_data(cityname=specific_city_name)
+        polish_weather_dict = basic_weather_template
+        polish_weather_dict.update({
+            'City': city_data.get('stacja'),
+            'Temperature': city_data.get('temperatura'),
+            'Pressure': city_data.get('cisnienie'),
+            'Rainfall': city_data.get('suma_opadu'),
+            'Wind': city_data.get('predkosc_wiatru'),
+            'Humidity': city_data.get('wilgotnosc_wzgledna'),
+            'Date': city_data.get('data_pomiaru'),
+            'Hour': city_data.get('godzina_pomiaru'),
+                })
+        return polish_weather_dict
+
+
+#Przykładowe wywołanie
+
+
+polish_weather = PolishWeather(POLISH_ALL_CITIES, POLISH_SPECIFIC_CITY)
+temp = polish_weather.get_formatted_city_data('warszawa')
+print(temp)
+
