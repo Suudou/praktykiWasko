@@ -14,7 +14,4 @@ class GermanyWeather(URLTemplate):
         super().__init__(all_cities_url, specific_cities_url)
 
     def get_city_names(self) -> list:
-        # city_names_list = []
-        all_cities = self._get_all_cities()
-        city_names_list = [station['name'] for station in all_cities]
-        return city_names_list
+        return [station['name'] for station in self._get_all_cities()]
