@@ -18,4 +18,4 @@ def convert_temperature(dst, val, src='C') -> int:
         case 'F':
             return round((temp_celsius * 9 / 5) + 32)
         case _:
-            raise ValueError(f"Nieobsługiwana jednostka temperatury: {dst}")
+            raise ValueError(f"unit not supported: {dst}")

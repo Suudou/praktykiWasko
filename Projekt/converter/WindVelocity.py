@@ -17,4 +17,4 @@ def convert_velocity(dst, val, src='kilometers_per_hour') -> int:
         case 'miles_per_hour':
             return round((temp_kmph / 1.61))
         case _:
-            raise ValueError(f"Nieobsługiwana jednostka prędkości: {dst}")
+            raise ValueError(f"unit not supported: {dst}")
