@@ -1,6 +1,6 @@
 
 
-def convert_temperature(dst, val, src='C'):
+def convert_temperature(dst, val, src='C') -> int:
     def source_to_celsius(value, source):
         match source:
             case 'C':
