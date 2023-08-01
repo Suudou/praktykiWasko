@@ -30,9 +30,10 @@ class URLTemplate:
     @abstractmethod
     def get_formatted_city_data(self, specific_city_name) -> dict:
         basic_weather_template = {
-            'City': '',
-            'Temperature': '',
-            'Pressure': '',
-            'Rainfall': '',
+            'City': None,
+            'Temperature': None,
+            'Pressure': None,
+            'Rainfall': None,
+            'Wind velocity': None
         }
         return basic_weather_template
