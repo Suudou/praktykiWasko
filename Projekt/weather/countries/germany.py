@@ -37,6 +37,23 @@ class GermanyWeather(URLTemplate):
     def get_formatted_city_data(self, specific_city_name):
         basic_weather_template = super().get_formatted_city_data(specific_city_name)
         city_data = self._get_city_data(**self.__prepare_url_params(specific_city_name))
+        german_weather_dict = basic_weather_template
+        weather_data = city_data.get('weather', [])
+        weather_info = weather_data[0]
+        date_time_string = weather_info.get('timestamp')
+        date = date_time_string[:10]
+        time = date_time_string[11:19]
+        german_weather_dict.update({
+            'City': specific_city_name,
+            'Temperature': weather_info.get('temperature'),
+            'Pressure': weather_info.get('pressure_msl'),
+            'Rainfall': weather_info.get('Precipitation'),
+            'Wind velocity': weather_info.get('wind_speed'),
+            'Humidity': weather_info.get('relative_humidity'),
+            'Date': date,
+            'Hour': time,
+        })
+        return german_weather_dict
 
-        return city_data
+
 
