@@ -34,5 +34,9 @@ class GermanyWeather(URLTemplate):
 
         return query_params
 
+    def get_formatted_city_data(self, specific_city_name):
+        basic_weather_template = super().get_formatted_city_data(specific_city_name)
+        city_data = self._get_city_data(**self.__prepare_url_params(specific_city_name))
 
+        return city_data
 
