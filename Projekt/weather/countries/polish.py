@@ -29,7 +29,7 @@ class PolishWeather(URLTemplate):
             'Temperature': city_data.get('temperatura'),
             'Pressure': city_data.get('cisnienie'),
             'Rainfall': city_data.get('suma_opadu'),
-            'Wind': city_data.get('predkosc_wiatru'),
+            'Wind velocity': city_data.get('predkosc_wiatru'),
             'Humidity': city_data.get('wilgotnosc_wzgledna'),
             'Date': city_data.get('data_pomiaru'),
             'Hour': city_data.get('godzina_pomiaru'),
@@ -39,8 +39,7 @@ class PolishWeather(URLTemplate):
 
 #Przykładowe wywołanie
 
-
 polish_weather = PolishWeather(POLISH_ALL_CITIES, POLISH_SPECIFIC_CITY)
-temp = polish_weather.get_formatted_city_data('warszawa')
-print(temp)
+#temp = polish_weather.get_formatted_city_data('warszawa')
+#print(temp)
 
