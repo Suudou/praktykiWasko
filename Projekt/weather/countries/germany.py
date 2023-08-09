@@ -1,5 +1,5 @@
 
-from Projekt.weather.baseWeather import URLTemplate
+from weather.baseWeather import URLTemplate
 import datetime
 import requests
 
@@ -8,7 +8,9 @@ GERMAN_SPECIFIC_CITY = "https://api.brightsky.dev/weather?lat=$lat&lon=$lon&date
 
 
 class GermanyWeather(URLTemplate):
-    def __init__(self, all_cities_url: str, specific_cities_url: str):
+    def __init__(self):
+        all_cities_url = "https://brightsky.dev/demo/cities.json"
+        specific_cities_url = "https://api.brightsky.dev/weather?lat=$lat&lon=$lon&date=$date&last_date=$last_date"
         super().__init__(all_cities_url, specific_cities_url)
 
     def get_city_names(self) -> list:
@@ -16,7 +18,7 @@ class GermanyWeather(URLTemplate):
 
     def __prepare_url_params(self, chosen_city):
         query_params = {}
-    # Todo: write tests
+    # Todo: write tests, verify rounding errors
         # Formatted date for url
         current_date = datetime.datetime.now()
         time_difference = datetime.timedelta(minutes=59, seconds=59, microseconds=999999)
@@ -45,13 +47,13 @@ class GermanyWeather(URLTemplate):
         time = date_time_string[11:19]
         german_weather_dict.update({
             'City': specific_city_name,
-            'Temperature': weather_info.get('temperature'),
-            'Pressure': weather_info.get('pressure_msl'),
-            'Rainfall': weather_info.get('Precipitation'),
-            'Wind velocity': weather_info.get('wind_speed'),
-            'Humidity': weather_info.get('relative_humidity'),
-            'Date': date,
-            'Hour': time,
+            'Temperature': {'value': weather_info.get('temperature'), 'unit': 'C'},
+            'Pressure': {'value': weather_info.get('pressure_msl'), 'unit': 'hPa'},
+            'Rainfall': {'value': weather_info.get('Precipitation'), 'unit': 'mm'},
+            'Wind velocity': {'value': weather_info.get('wind_speed'), 'unit': 'kilometers_per_hour'},
+            'Humidity': {'value': weather_info.get('relative_humidity'), 'unit': '%'},
+            'Date': {'value': date, 'unit': 'CEST'},
+            'Hour': {'value': time, 'unit': 'CEST'},
         })
         return german_weather_dict
 

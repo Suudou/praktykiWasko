@@ -9,7 +9,10 @@ POLISH_SPECIFIC_CITY = "https://danepubliczne.imgw.pl/api/data/synop/station/$ci
 
 
 class PolishWeather(URLTemplate):
-    def __init__(self, all_cities_url: str, specific_cities_url: str):
+    def __init__(self):
+        all_cities_url = "https://danepubliczne.imgw.pl/api/data/synop"
+        specific_cities_url = "https://danepubliczne.imgw.pl/api/data/synop/station/$cityname"
+
         super().__init__(all_cities_url, specific_cities_url)
 
     def get_city_names(self, ) -> list:
@@ -26,20 +29,21 @@ class PolishWeather(URLTemplate):
         polish_weather_dict = basic_weather_template
         polish_weather_dict.update({
             'City': city_data.get('stacja'),
-            'Temperature': city_data.get('temperatura'),
-            'Pressure': city_data.get('cisnienie'),
-            'Rainfall': city_data.get('suma_opadu'),
-            'Wind velocity': city_data.get('predkosc_wiatru'),
-            'Humidity': city_data.get('wilgotnosc_wzgledna'),
-            'Date': city_data.get('data_pomiaru'),
-            'Hour': city_data.get('godzina_pomiaru'),
+            'Temperature': {'value': city_data.get('temperatura'), 'unit': 'C'},
+            'Pressure': {'value': city_data.get('cisnienie'), 'unit': 'hPa'},
+            'Rainfall': {'value': city_data.get('suma_opadu'), 'unit': 'mm'},
+            'Wind velocity': {'value': city_data.get('predkosc_wiatru'), 'unit': 'kilometers_per_hour'},
+            'Humidity': {'value': city_data.get('wilgotnosc_wzgledna'), 'unit': '%'},
+            'Date': {'value': city_data.get('data_pomiaru'), 'unit': 'CEST'},
+            'Hour': {'value': city_data.get('godzina_pomiaru'), 'unit': 'CEST'},
                 })
         return polish_weather_dict
 
 
+
 #Przykładowe wywołanie
 
-polish_weather = PolishWeather(POLISH_ALL_CITIES, POLISH_SPECIFIC_CITY)
+#polish_weather = PolishWeather(POLISH_ALL_CITIES, POLISH_SPECIFIC_CITY)
 #temp = polish_weather.get_formatted_city_data('warszawa')
 #print(temp)
 
