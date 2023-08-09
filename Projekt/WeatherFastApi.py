@@ -27,36 +27,19 @@ def get_cities_for_country(country: str):
     return cities
 
 
+@app.get("/weather/{country}/{city}/forecast")
+def get_weather_forecast_for_city(
+    country: str,
+    city: str = Path(..., title="City", description="Chose city")
+):
+    if country.lower() == 'poland':
+        city_weather_data = polish_weather.get_formatted_city_data(city)
+    elif country.lower() == 'germany':
+        city_weather_data = german_weather.get_formatted_city_data(city)
+    else:
+        return JSONResponse(content={"error": "Invalid country"}, status_code=400)
+    return city_weather_data
+
 # Todo:
 #  w osobnym pliku @app.get("/converter") query paramsy to co wchodzi do funkcji
-
-
-
-
-"""
-app = FastAPI()
-
-# nowy html
-# @app.get("index/, response_class=HTMLResponse")
-
-
-@app.get("/", response_class=HTMLResponse)
-def get_home(request: Request):
-    cities = CityChoice.cities_get()
-    return templates.TemplateResponse("index.html", {"request": request, "cities": cities})
-
-
-@app.get("/get-by-station")
-def get_station(name: str):
-    cities = CityChoice.cities_get()
-    name = name.capitalize()
-    if name in cities:
-        city = CityChoice.chosen_city(name)
-        return city
-    return "station not found"
-
-
-templates = Jinja2Templates(directory="templates")
-
-
-"""
+#  templates = Jinja2Templates(directory="templates")
