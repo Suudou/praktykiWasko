@@ -1,16 +1,43 @@
-from fastapi import FastAPI, Path, Request
-import CityChoice
+from fastapi import FastAPI, Path, Request, Query
 import jinja2
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 import uvicorn
+from starlette.responses import JSONResponse
+
+from weather.countries.germany import GermanyWeather
+from weather.countries.polish import PolishWeather
+from weather.baseWeather import URLTemplate
+from weather.countries import polish, germany
+polish_weather = PolishWeather()
+german_weather = GermanyWeather()
 
 
 app = FastAPI()
 
 
-#@app.get("index/, response_class=HTMLResponse")
+@app.get("/weather/{country}/cities")
+def get_cities_for_country(country: str):
+    if country.lower() == 'poland':
+        cities = polish_weather.get_city_names()
+    elif country.lower() == 'germany':
+        cities = german_weather.get_city_names()
+    else:
+        return JSONResponse(content={"error": "Invalid country"}, status_code=400)
+    return cities
 
+
+# Todo:
+#  w osobnym pliku @app.get("/converter") query paramsy to co wchodzi do funkcji
+
+
+
+
+"""
+app = FastAPI()
+
+# nowy html
+# @app.get("index/, response_class=HTMLResponse")
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -32,3 +59,4 @@ def get_station(name: str):
 templates = Jinja2Templates(directory="templates")
 
 
+"""
