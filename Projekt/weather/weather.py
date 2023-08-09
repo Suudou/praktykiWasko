@@ -9,29 +9,39 @@ from Projekt.weather.countries.polish import PolishWeather
 
 class Weather:
     def __init__(self, data: dict):
-        self.data = {'city': data['City']}
+        self.City = data.get('City')
+        self.Temperature_value = data.get('Temperature')['value']
+        self.Temperature_unit = data.get('Temperature')['unit']
 
-        for key, value in data.items():
-            if key != 'City':
-                self.data[key] = {
-                    'value': value,
-                    'unit': self.get_unit(key)
-                }
+        self.Pressure_value = data.get('Pressure')['value']
+        self.Pressure_unit = data.get('Pressure')['unit']
 
-    def get_unit(self, key):
-        units = {
-            'Temperature': 'C',
-            'Pressure': 'hPa',
-            'Rainfall': 'mm',
-            'Wind velocity': 'km/h',
-            'Humidity': '%',
-            'Date': 'CEST',
-            'Hour': 'CEST'
-        }
-        return units.get(key, '')
+        self.Rainfall_value = data.get('Rainfall')['value']
+        self.Rainfall_unit = data.get('Rainfall')['unit']
+
+        self.Wind_velocity_value = data.get('Wind velocity')['value']
+        self.Wind_velocity_unit = data.get('Wind velocity')['unit']
+
+        self.Humidity_value = data.get('Humidity')['value']
+        self.Humidity_unit = data.get('Humidity')['unit']
+
+        self.Date_value = data.get('Date')['value']
+        self.Date_unit = data.get('Date')['unit']
+
+        self.Hour_value = data.get('Hour')['value']
+        self.Hour_unit = data.get('Hour')['unit']
 
     def __str__(self):
-            return str(self.data)
+        return (
+            f"City: {self.City}\n"
+            f"Temperature: {self.Temperature_value} {self.Temperature_unit}\n"
+            f"Pressure: {self.Pressure_value} {self.Pressure_unit}\n"
+            f"Rainfall: {self.Rainfall_value} {self.Rainfall_unit}\n"
+            f"Wind Velocity: {self.Wind_velocity_value} {self.Wind_velocity_unit}\n"
+            f"Humidity: {self.Humidity_value} {self.Humidity_unit}\n"
+            f"Date: {self.Date_value} {self.Date_unit}\n"
+            f"Hour: {self.Hour_value} {self.Hour_unit}"
+        )
 
 
 polish_weather = PolishWeather()
