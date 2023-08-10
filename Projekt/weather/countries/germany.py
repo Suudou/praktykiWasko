@@ -1,5 +1,5 @@
 
-from weather.baseWeather import URLTemplate
+from Projekt.weather.baseWeather import URLTemplate
 import datetime
 import requests
 
@@ -9,9 +9,8 @@ GERMAN_SPECIFIC_CITY = "https://api.brightsky.dev/weather?lat=$lat&lon=$lon&date
 
 class GermanyWeather(URLTemplate):
     def __init__(self):
-        all_cities_url = "https://brightsky.dev/demo/cities.json"
-        specific_cities_url = "https://api.brightsky.dev/weather?lat=$lat&lon=$lon&date=$date&last_date=$last_date"
-        super().__init__(all_cities_url, specific_cities_url)
+
+        super().__init__(GERMAN_ALL_CITIES, GERMAN_SPECIFIC_CITY)
 
     def get_city_names(self) -> list:
         return [station['name'] for station in self._get_all_cities()]
