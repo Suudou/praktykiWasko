@@ -1,7 +1,7 @@
 #from weather.countries.polish import PolishWeather
 #import weather.countries.polish
 
-from Projekt.weather.countries.polish import PolishWeather
+from weather.countries.polish import PolishWeather
 
 
 # get_formatted_city_data wchodzi do weather, i zamieniam słownik w pola
