@@ -1,5 +1,5 @@
 
-from Projekt.weather.baseWeather import URLTemplate
+from weather.baseWeather import URLTemplate
 import datetime
 import requests
 

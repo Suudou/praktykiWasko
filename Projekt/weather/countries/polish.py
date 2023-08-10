@@ -2,7 +2,7 @@ from string import Template
 from fastapi import requests
 import json
 
-from Projekt.weather.baseWeather import URLTemplate
+from weather.baseWeather import URLTemplate
 
 POLISH_ALL_CITIES = "https://danepubliczne.imgw.pl/api/data/synop"
 POLISH_SPECIFIC_CITY = "https://danepubliczne.imgw.pl/api/data/synop/station/$cityname"
