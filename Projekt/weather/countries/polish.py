@@ -10,10 +10,8 @@ POLISH_SPECIFIC_CITY = "https://danepubliczne.imgw.pl/api/data/synop/station/$ci
 
 class PolishWeather(URLTemplate):
     def __init__(self):
-        all_cities_url = "https://danepubliczne.imgw.pl/api/data/synop"
-        specific_cities_url = "https://danepubliczne.imgw.pl/api/data/synop/station/$cityname"
 
-        super().__init__(all_cities_url, specific_cities_url)
+        super().__init__(POLISH_ALL_CITIES, POLISH_SPECIFIC_CITY)
 
     def get_city_names(self, ) -> list:
         city_names_list = []
