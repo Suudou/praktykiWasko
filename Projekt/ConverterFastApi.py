@@ -1,9 +1,9 @@
-from fastapi import FastAPI, Query
+from fastapi import APIRouter, Query
 from converter.converter import Converter
-converter_app = FastAPI()
+converter_app_router = APIRouter()
 
 
-@converter_app.get("/converter/{type}")
+@converter_app_router.get("/converter/{type}")
 def api_convert(
         type: str,
         src: str = Query(..., title="Source Unit", description="Source unit for conversion"),
@@ -13,5 +13,7 @@ def api_convert(
         "type": type,
         "src": src,
         "val": val,
-        "dst": dst}
-    Converter.convert(type, dst, val, src)
+        "dst": dst,
+        "Converted val": Converter.convert(type, dst, val, src)}
+
+

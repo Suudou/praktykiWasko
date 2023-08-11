@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse
 import uvicorn
 from starlette.responses import JSONResponse
 
+import ConverterFastApi
 from weather.countries.germany import GermanyWeather
 from weather.countries.polish import PolishWeather
 from weather.baseWeather import URLTemplate
@@ -14,6 +15,7 @@ german_weather = GermanyWeather()
 
 
 app = FastAPI()
+app.include_router(ConverterFastApi.converter_app_router)
 
 
 @app.get("/weather/{country}/cities")
