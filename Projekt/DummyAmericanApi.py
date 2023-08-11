@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/us/{year}/{month}/{day}")
 async def read_users(year: int, month: int, day: int, hour: str = "0AM"):
     try:
-        hour_24h: int = int(hour[:-2]) if hour[-2] == 'A' else int(hour[:-2]) + 12
+        hour_24h: int = int(hour[:-2]) if hour[-2] == 'A' else (int(hour[:-2]) + 12)%12
         date: dt.datetime = dt.datetime.fromisoformat(f"{year}-{month:02}-{day:02}T{hour_24h:02}:00:00")
     except:
         return {"ERROR": "Usage: /us/yyyy/MM/dd?hour=hh, where hh is in 12hour format (AM/PM)"}
